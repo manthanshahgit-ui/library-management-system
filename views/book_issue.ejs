@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>Student Details</title>
+
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f1f5f9;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Title */
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #1e293b;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Header */
+th {
+    background: #1e293b;
+    color: white;
+    padding: 12px;
+    font-size: 14px;
+}
+
+/* Rows */
+td {
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+/* Zebra striping */
+tr:nth-child(even) {
+    background: #f8fafc;
+}
+
+/* Hover effect */
+tr:hover {
+    background: #e0f2fe;
+}
+
+/* Responsive scroll */
+.table-container {
+    overflow-x: auto;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>📋 Student Details</h2>
+
+<div class="table-container">
+<table>
+
+<tr>
+    <th>ID</th>
+    <th>student_id</th>
+    <th>book_id</th>
+    <th>issue_date</th>
+    <th>due_date</th>
+    <th>return_date</th>
+    <th>status</th>
+    <th>status change button</th>
+    <th>created_at</th>
+  
+</tr>
+
+<% users.forEach(user => { %>
+<tr>
+    <td><%= user.id %></td>
+    <td><%= user.student_id%></td>
+    <td><%= user.book_id %></td>
+    <td><%= user.issue_date %></td>
+    <td><%= user.due_date %></td>
+    <td><%= user.return_date%></td>
+    <td><%= user.status%></td>
+    <td>
+        <form method="GET" action="/user/<%=user.id%>/edit">
+            
+            <button>Edit Status</button>
+        </form>
+    </td>
+    <td><%= user.created_at %></td>
+</tr>
+<% }) %>
+
+</table>
+</div>
+
+</body>
+</html>

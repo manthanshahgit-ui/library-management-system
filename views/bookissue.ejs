@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Issue</title>
+
+    <!-- CSS from public folder -->
+    <link rel="stylesheet" href="/bookissue.css">
+
+    <style>
+    :root {
+        --primary: #f59e0b;
+        --dark: #1e293b;
+        --border: #e2e8f0;
+    }
+
+    .issue-container {
+        max-width: 700px;
+        margin: 2rem auto;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+
+    .issue-header {
+        padding: 20px 30px;
+        background: var(--dark);
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 8px 8px 0 0;
+    }
+
+    .status-badge {
+        background: var(--primary);
+        color: var(--dark);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .issue-form {
+        padding: 30px;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .full-span {
+        grid-column: span 2;
+    }
+
+    input {
+        padding: 10px;
+        border: 1px solid var(--border);
+        border-radius: 5px;
+    }
+
+    .action-row {
+        margin-top: 30px;
+        display: flex;
+        gap: 15px;
+        justify-content: flex-end;
+    }
+
+    button {
+        padding: 10px 24px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn-primary {
+        background: var(--primary);
+        border: none;
+    }
+
+    .btn-secondary {
+        background: #fff;
+        border: 1px solid var(--border);
+    }
+    </style>
+
+</head>
+
+<body>
+
+<div class="issue-container">
+
+    <div class="issue-header">
+        <h2>Book Issue Portal</h2>
+        <span class="status-badge">New Transaction</span>
+    </div>
+
+    <!-- ✅ CONNECTED TO NODE -->
+    <form class="issue-form" method="POST" action="/issue-book">
+
+        <div class="form-grid">
+
+            <div class="field">
+                <label>Student ID</label>
+                <input type="text" name="student_id" placeholder="STU0001" required>
+            </div>
+
+            <div class="field">
+                <label>Book ID</label>
+                <input type="text" name="book_id" placeholder="BK0001" required>
+            </div>
+
+            <div class="field">
+                <label>Issue Date</label>
+                <input type="date" name="issue_date" required>
+            </div>
+
+            <div class="field">
+                <label>Due Date</label>
+                <input type="date" name="due_date" required>
+            </div>
+
+         <div class="field full-span">
+    <label>Status</label>
+
+    <div style="display:flex; gap:20px;">
+
+        <label>
+            <input type="radio" name="status" value="issued" required>
+            Issued
+        </label>
+
+        <label>
+            <input type="radio" name="status" value="pending">
+            Pending
+        </label>
+
+        <label>
+            <input type="radio" name="status" value="returned">
+            Return
+        </label>
+
+    </div>
+</div>
+
+        </div>
+
+        <div class="action-row">
+            <button type="reset" class="btn-secondary">Clear</button>
+            <button type="submit" class="btn-primary">Confirm Issue</button>
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>

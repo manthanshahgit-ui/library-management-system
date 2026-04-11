@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Container styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            max-width: 450px;
+            margin: 2rem auto;
+            padding: 25px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            gap: 12px;
+        }
+
+        /* Base style for all inputs */
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1.5px solid #e1e1e1;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+            /* Ensures padding doesn't affect width */
+            transition: all 0.2s ease;
+        }
+
+        /* Focus state: adds a blue glow */
+        input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        /* Specific styling for Date and Number inputs */
+        input[type="date"],
+        input[type="number"] {
+            cursor: pointer;
+            color: #444;
+        }
+
+        /* Submit Button */
+        button {
+            margin-top: 10px;
+            padding: 14px;
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #2563eb;
+        }
+
+        /* Small label simulation for Date fields */
+        input[type="date"]::before {
+            content: attr(placeholder);
+            margin-right: 10px;
+            color: #999;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div>     -->
+    <form method="POST" action="/student-enter">
+
+        <label>Student Registration</label>
+
+        <input type="text" id="fname" name="first_name" placeholder="enter the student name" required>
+        <input type="text" id="fname" name="last_name" placeholder="enter the student name" required>
+
+        <input type="email" id="Smail" name="Smail" placeholder="student email" required>
+        <div class="field">
+            <label>Date of Birth</label>
+            <input type="date" name="DOB" required>
+        </div>
+
+        <input type="tel" id="Snumber" name="Snumber" placeholder="student number" required>
+
+        <input type="tel" id="Pnumber" name="Pnumber" placeholder="parent number" required>
+
+        <input type="text" id="Saddress" name="Saddress" placeholder="address of student" required>
+
+        <div class="field">
+            <label>Date of Registration</label>
+            <input type="date" name="DOR" required>
+        </div>
+        
+        <div style="display:flex; gap:20px;">
+
+            <label>
+                <input type="radio" name="year" value="first" required>
+                first
+            </label>
+
+            <label>
+                <input type="radio" name="year" value="DSE">
+                DSE
+            </label>
+
+
+
+        </div>
+
+        <button type="submit">Submit</button>
+
+    </form>
+    <!-- </div> -->
+</body>
+<script src="studententer.js"></script>
+
+</html>

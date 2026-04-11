@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>Book Issue Details</title>
+
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f1f5f9;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Title */
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #1e293b;
+}
+
+/* Notification */
+.alert-box {
+    margin-bottom: 20px;
+}
+
+.alert {
+    background: #ffe5e5;
+    color: #b30000;
+    padding: 10px;
+    border-left: 5px solid red;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th {
+    background: #1e293b;
+    color: white;
+    padding: 12px;
+    font-size: 14px;
+}
+
+td {
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+/* Zebra */
+tr:nth-child(even) {
+    background: #f8fafc;
+}
+
+/* Hover */
+tr:hover {
+    background: #e0f2fe;
+}
+
+/* Overdue Row */
+.overdue {
+    background: #ffe5e5 !important;
+}
+
+/* Button */
+button {
+    padding: 6px 10px;
+    background: #2e86de;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1b4f72;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>📚 Book Issue Details</h2>
+
+<!-- 🔔 Notifications -->
+<% if (notifications && notifications.length > 0) { %>
+<div class="alert-box">
+    <% notifications.forEach(n => { %>
+        <div class="alert">
+            ⚠️ <b><%= n.first_name %></b> has not returned 
+            "<%= n.title %>" (Due: <%= n.due_date %>)
+        </div>
+    <% }) %>
+</div>
+<% } %>
+
+<div class="table-container">
+<table>
+
+<tr>
+    <th>ID</th>
+    <th>Student ID</th>
+    <th>Book ID</th>
+    <th>Issue Date</th>
+    <th>Due Date</th>
+    <th>Return Date</th>
+    <th>Status</th>
+    <th>Action</th>
+    <th>Created</th>
+</tr>
+
+<% users.forEach(user => { %>
+<tr class="<%= user.status === 'overdue' ? 'overdue' : '' %>">
+
+    <td><%= user.id %></td>
+    <td><%= user.student_id %></td>
+    <td><%= user.book_id %></td>
+    <td><%= user.issue_date %></td>
+    <td><%= user.due_date %></td>
+    <td><%= user.return_date ? user.return_date : '-' %></td>
+
+    <td>
+        <% if(user.status === 'overdue'){ %>
+            <span style="color:red; font-weight:bold;"><%= user.status %></span>
+        <% } else { %>
+            <%= user.status %>
+        <% } %>
+    </td>
+
+    <td>
+        <form method="GET" action="/user/<%= user.id %>/edit">
+            <button>Edit</button>
+        </form>
+    </td>
+
+    <td><%= user.created_at %></td>
+
+</tr>
+<% }) %>
+
+</table>
+</div>
+
+<!-- ⏱ Auto hide notifications -->
+<script>
+setTimeout(() => {
+    const box = document.querySelector('.alert-box');
+    if (box) box.style.display = 'none';
+}, 5000);
+</script>
+
+</body>
+</html>

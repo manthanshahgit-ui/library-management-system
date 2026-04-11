@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Library Management System</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f1f5f9;
+}
+
+/* Header */
+.header {
+    background: linear-gradient(135deg, #1e293b, #0ea5e9);
+    color: white;
+    padding: 25px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Grid Layout */
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    max-width: 1000px;
+    margin: 40px auto;
+}
+
+/* Card Design */
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+}
+
+/* Icon Circle */
+.icon {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+/* Title */
+.card h3 {
+    margin-bottom: 8px;
+    color: #1e293b;
+}
+
+/* Description */
+.card p {
+    font-size: 14px;
+    color: #64748b;
+}
+
+/* Button */
+.btn {
+    margin-top: 15px;
+    display: inline-block;
+    padding: 10px 20px;
+    background: #0ea5e9;
+    color: white;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.btn:hover {
+    background: #0284c7;
+}
+
+/* Remove link styling */
+a {
+    text-decoration: none;
+}
+
+/* Responsive */
+@media(max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media(max-width: 500px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>📚 Library Management System</h1>
+</div>
+
+<div class="container">
+
+    <!-- Student -->
+    <a href="/studententer">
+        <div class="card">
+            <h3>Student Registration</h3>
+            <p>Add new students</p>
+            <div class="btn">Open</div>
+        </div>
+    </a>
+
+    <!-- Book -->
+    <a href="/bookreg">
+        <div class="card">
+            <h3>Book Entry</h3>
+            <p>Add new books</p>
+            <div class="btn">Open</div>
+        </div>
+    </a>
+
+    <!-- Issue -->
+    <a href="/bookissue">
+        <div class="card">
+            <h3>Book Issue</h3>
+            <p>Issue books to students</p>
+            <div class="btn">Open</div>
+        </div>
+    </a>
+
+    
+    <!-- Student List -->
+    <a href="/student/data">
+        <div class="card">
+            <h3>Student Details</h3>
+            <p>View all students</p>
+            <div class="btn">View</div>
+        </div>
+    </a>
+
+    <!-- Book List -->
+    <a href="/book/data">
+        <div class="card">
+            <h3>Book List</h3>
+            <p>View all books</p>
+            <div class="btn">View</div>
+        </div>
+    </a>
+
+    <!-- Issue List -->
+    <a href="/book/issues">
+        <div class="card">
+            <h3>Issue Records</h3>
+            <p>View issued books</p>
+            <div class="btn">View</div>
+        </div>
+    </a>
+
+</div>
+
+
+
+</body>
+</html>

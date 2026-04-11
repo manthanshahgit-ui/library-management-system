@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>Student Details</title>
+
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f1f5f9;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Title */
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #1e293b;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Header */
+th {
+    background: #1e293b;
+    color: white;
+    padding: 12px;
+    font-size: 14px;
+}
+
+/* Rows */
+td {
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+/* Zebra striping */
+tr:nth-child(even) {
+    background: #f8fafc;
+}
+
+/* Hover effect */
+tr:hover {
+    background: #e0f2fe;
+}
+
+/* Responsive scroll */
+.table-container {
+    overflow-x: auto;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>📋 Student Details</h2>
+
+<div class="table-container">
+<table>
+
+<tr>
+    <th>ID</th>
+    <th>Title</th>
+    <th>Author</th>
+    <th>Isbn</th>
+    <th>gerneration</th>
+    <th>total-copies</th>
+    <th>avaiable-copies</th>
+    <th>registration_date</th>
+  
+</tr>
+
+<% users.forEach(user => { %>
+<tr>
+    <td><%= user.id %></td>
+    <td><%= user.title%></td>
+    <td><%= user.author %></td>
+    <td><%= user.isbn %></td>
+    <td><%= user.genre %></td>
+    <td><%= user.total_copies%></td>
+    <td><%= user.avaiable_copies%></td>
+    <td><%= user.created_at %></td>
+</tr>
+<% }) %>
+
+</table>
+</div>
+
+</body>
+</html>
