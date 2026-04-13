@@ -214,14 +214,7 @@ app.get("/book/data", (req, res) => {
     });
 });
 
-// app.all("/book/issue/data", (req, res) => {
-//     res.send('error')
-//     // return res.redirect("/book/issues");
-// });
 
-// app.all("/bookissue/data", (req, res) => {
-//     return res.redirect("/book/issues");
-// });
 
 app.post('/student-enter', (req, res) => {
     let { first_name, last_name, Smail, DOB, Snumber, Pnumber, year, Saddress, branch } = req.body;
