@@ -72,7 +72,7 @@ node studententer.js
 
 ### Open in browser
 
-http://localhost:3000
+http://localhost:8080
 
 ---
 
