@@ -46,6 +46,7 @@ lib/
 │── package-lock.json
 
 
+```
 ⚙️ Installation & Setup
 Clone the repository
 git clone https://github.com/your-username/library-management-system.git
@@ -96,6 +97,11 @@ Manthan Shah
 - Sections separated using `---` ✅  
 
 ---
+
+If it **still looks wrong**, tell me:
+👉 Are you editing in **GitHub web / VS Code / Notepad**  
+
+I’ll fix it based on your exact setup.
 
 If it **still looks wrong**, tell me:
 👉 Are you editing in **GitHub web / VS Code / Notepad**  
