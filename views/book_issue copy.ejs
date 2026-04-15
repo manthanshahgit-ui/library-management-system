@@ -160,12 +160,33 @@ button:hover {
 </div>
 
 <!-- ⏱ Auto hide notifications -->
-<script>
+<!-- <script>
 setTimeout(() => {
     const box = document.querySelector('.alert-box');
     if (box) box.style.display = 'none';
 }, 5000);
+
+
+alert("Book issued successfully!");
+</script> -->
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+
+
+
+const msg = "<%= msg %>";
+
+if (msg === "issued") alert("📚 Book issued successfully!");
+else if (msg === "student_not_found") alert("❌ Student not found!");
+else if (msg === "book_not_found") alert("❌ Invalid Book ID!");
+else if (msg === "book_not_available") alert("⚠️ Book not available!");
+else if (msg === "error") alert("❌ Something went wrong!");
+
+if (msg) {
+    window.history.replaceState({}, document.title, window.location.pathname);
+}
 </script>
+
 
 </body>
 </html>

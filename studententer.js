@@ -33,34 +33,6 @@ const connection = mysql.createConnection({
 });
 
 // Connect DB
-connection.connect((err) => {
-    if (err) {
-        console.log(err);
-    } else {
-        console.log("MySQL Connected ✅");
-        
-        // Create returned_books table if it doesn't exist
-        let createTableQ = `
-            CREATE TABLE IF NOT EXISTS returned_books (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                student_id INT,
-                book_id INT,
-                issue_date DATE,
-                due_date DATE,
-                return_date DATE,
-                FOREIGN KEY (student_id) REFERENCES student(id),
-                FOREIGN KEY (book_id) REFERENCES book(id)
-            )
-        `;
-        connection.query(createTableQ, (err, result) => {
-            if (err) {
-                console.log("Error creating returned_books table:", err);
-            } else {
-                console.log("returned_books table ready ✅");
-            }
-        });
-    }
-});
 
 // Email configuration
 const transporter = nodemailer.createTransport({
@@ -225,7 +197,7 @@ VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     try {
         connection.query(q, [first_name, last_name, Smail, DOB, year, Snumber, Pnumber, Saddress, branch, DOR], (err, result) => {
             if (err) throw err;
-            
+
             // Send welcome email
             const mailOptions = {
                 from: 'act12566@gmail.com',
@@ -252,6 +224,40 @@ VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
 });
 
+app.post("/issue-book", (req, res) => {
+
+    let { student_id, book_id, issue_date, due_date, status } = req.body;
+
+    // check student
+    connection.query("SELECT * FROM student WHERE id = ?", [student_id], (err, s) => {
+        if (err) return res.redirect('/book/issues?msg=error');
+        if (s.length === 0) return res.redirect('/book/issues?msg=student_not_found');
+
+        // check book
+        connection.query("SELECT available_copies FROM book WHERE id = ?", [book_id], (err, b) => {
+            if (err) return res.redirect('/book/issues?msg=error');
+            if (b.length === 0) return res.redirect('/book/issues?msg=book_not_found');
+            if (b[0].available_copies <= 0) return res.redirect('/book/issues?msg=book_not_available');
+
+            // insert issue
+            connection.query(
+                "INSERT INTO book_issue (student_id, book_id, issue_date, due_date, status) VALUES (?, ?, ?, ?, ?)",
+                [student_id, book_id, issue_date, due_date, status],
+                (err) => {
+                    if (err) return res.redirect('/book/issues?msg=error');
+
+                    // update book count
+                    connection.query(
+                        "UPDATE book SET available_copies = available_copies - 1 WHERE id = ?",
+                        [book_id],
+                        () => res.redirect('/book/issues?msg=issued')
+                    );
+                }
+            );
+        });
+    });
+
+});
 
 
 
@@ -317,13 +323,16 @@ app.get('/book/issues', (req, res) => {
                     console.log(err3);
                     return res.send("Fetch error");
                 }
+// let success = req.query.success;
+let msg = req.query.msg || "";   // ✅ default empty
 
-                res.render("book_issue copy.ejs", {
-                    users: result,
-                    notifications: notifications
-                });
-
-            });
+res.render("book_issue copy.ejs", {
+    users: result,
+    notifications: notifications,
+    msg: msg
+});
+// res.redirect('/book/issues?success=1');      
+});
 
         });
 
@@ -412,7 +421,35 @@ VALUES (?, ?, ?, ?, ?)`;
                     console.log(err);
                     return res.send("Error updating book count");
                 }
+let q1 = "SELECT CONCAT(first_name, ' ', last_name) AS name, email FROM student WHERE id = ?";
 
+connection.query(q1, [student_id], (err, result) => {
+    if (err) return console.log(err);
+
+    let name = result[0].name;
+    let email = result[0].email;
+
+    let message = `Dear ${name},
+\nYour requested book has been successfully issued.
+
+Issue Date: ${issue_date}
+Due Date: ${due_date}
+
+Please return the book on or before the ${due_date} to avoid any late fees.
+
+Best regards,
+College Library Team`;
+
+    transporter.sendMail({
+        from: 'act12566@gmail.com',
+        to: email,
+        subject: 'Book Issue Confirmation',
+        text: message
+    }, (err, info) => {
+        if (err) console.log(err);
+        else console.log("Email sent");
+    });
+});
                 res.redirect('/book/data')
             });
         });

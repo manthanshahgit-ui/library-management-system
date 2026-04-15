@@ -122,7 +122,9 @@
 
             <div class="field">
                 <label>Issue Date</label>
-                <input type="date" name="issue_date" required>
+
+                <input type="date" id="issue_date" name="issue_date" max="">
+                <!-- <input type="date" name="issue_date" required> -->
             </div>
 
             <!-- Due Date is auto-calculated as Issue Date + 7 days -->
@@ -175,6 +177,11 @@
             dueDateInput.value = dueDate.toISOString().split('T')[0];
         }
     });
+
+
+let today = new Date().toISOString().split("T")[0];
+document.getElementById("issue_date").setAttribute("max", today);
+
 </script>
 
 </body>
